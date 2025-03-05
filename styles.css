@@ -238,6 +238,217 @@ footer {
     right: auto;
 }
 
+/* Interactive Content Styles */
+.interactive-content {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+
+/* Book Animation Styles */
+.book-animation {
+    perspective: 1000px;
+    width: 300px;
+    height: 300px;
+    position: relative;
+}
+
+.book {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    transition: transform 1s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(45deg, #2c3e50, #3498db);
+    border-radius: 5px;
+    border-left: 15px solid #2c3e50;
+}
+
+.book:hover {
+    transform: rotateY(180deg);
+}
+
+.book-title {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px dashed rgba(0, 0, 0, 0.1);
+    color: var(--primary-color);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    transform: rotate(-1deg);
+    transition: all 0.5s ease;
+}
+
+.book:hover .book-title {
+    transform: rotate(0);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.page1 {
+    transform: rotateY(0deg);
+}
+
+.code-line {
+    font-family: monospace;
+    font-size: 14px;
+    padding: 5px;
+    margin: 5px 0;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+    position: relative;
+    transition: all 0.5s ease;
+    transform: translateX(0);
+    opacity: 0.7;
+    color: #555;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+    transform-origin: left center;
+}
+
+.code-line:nth-child(odd) {
+    transform: translateX(-30px) rotate(-2deg);
+}
+
+.code-line:nth-child(even) {
+    transform: translateX(20px) rotate(1deg);
+}
+
+.code-line:nth-child(3n) {
+    transform: translateX(-15px) rotate(0.5deg);
+    opacity: 0.5;
+}
+
+.code-line:nth-child(3n+1) {
+    transform: translateX(25px) rotate(-1deg);
+    opacity: 0.6;
+}
+
+.book:hover .code-line {
+    transform: translateX(0) !important;
+    rotate: 0deg !important;
+    opacity: 1;
+    background-color: rgba(52, 152, 219, 0.1);
+    border-left: 3px solid var(--primary-color);
+    color: #333;
+    text-shadow: none;
+}
+
+.book:hover .code-line:nth-child(1) { transition-delay: 0.1s; }
+.book:hover .code-line:nth-child(2) { transition-delay: 0.2s; }
+.book:hover .code-line:nth-child(3) { transition-delay: 0.3s; }
+.book:hover .code-line:nth-child(4) { transition-delay: 0.4s; }
+.book:hover .code-line:nth-child(5) { transition-delay: 0.5s; }
+.book:hover .code-line:nth-child(6) { transition-delay: 0.6s; }
+
+/* Sliding Puzzle Styles */
+.puzzle-container {
+    width: 300px;
+    height: 300px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.puzzle-image {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+}
+
+.puzzle-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sliding-puzzle {
+    display: none;
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.puzzle-tile {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    box-sizing: border-box;
+    border: 1px solid white;
+    background-color: var(--primary-color);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.puzzle-tile:hover {
+    transform: scale(0.95);
+    background-color: #2980b9;
+}
+
+.puzzle-controls {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.puzzle-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 5px;
+    font-weight: bold;
+}
+
+.puzzle-button:hover {
+    background-color: #2980b9;
+}
+
+.empty {
+    background-color: transparent !important;
+    border: none !important;
+    cursor: default !important;
+}
+
+.empty:hover {
+    transform: none !important;
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
     header .container {
@@ -245,14 +456,15 @@ footer {
         gap: 20px;
     }
     
-    .content-section, 
+    .content-section,
     .content-section.reverse {
         flex-direction: column;
         gap: 30px;
     }
     
     .text-content,
-    .image-content {
+    .image-content,
+    .interactive-content {
         flex: 1;
         width: 100%;
     }
@@ -263,6 +475,11 @@ footer {
     
     .section-text {
         font-size: 1rem;
+    }
+    
+    .book-animation,
+    .puzzle-container {
+        margin: 0 auto;
     }
 }
 
@@ -278,5 +495,17 @@ footer {
     
     .section-title {
         font-size: 1.5rem;
+    }
+    
+    .book-animation,
+    .puzzle-container {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .puzzle-tile {
+        width: 83.33px;
+        height: 83.33px;
+        font-size: 20px;
     }
 }
