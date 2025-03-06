@@ -51,15 +51,21 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (direction === 'up') {
-                // When going up, remove active class from current tag only
+                // When going up, remove active class from current tag
                 tags[currentTagIndex].classList.remove('active');
-                // Reset all subsequent tags
-                for (let i = currentTagIndex + 1; i < tags.length; i++) {
-                    tags[i].classList.remove('active');
+                // Update positions for all tags
+                for (let i = 0; i < tags.length; i++) {
+                    tags[i].style.transform = `translateX(${-10 * i}px) rotate(${5 * i}deg)`;
+                    tags[i].style.zIndex = tags.length - i;
                 }
             } else {
-                // When going down, add active class to current tag only
+                // When going down, add active class to current tag
                 tags[currentTagIndex].classList.add('active');
+                // Update positions for remaining tags
+                for (let i = currentTagIndex + 1; i < tags.length; i++) {
+                    tags[i].style.transform = `translateX(${-10 * (i - currentTagIndex - 1)}px) rotate(${5 * (i - currentTagIndex - 1)}deg)`;
+                    tags[i].style.zIndex = tags.length - (i - currentTagIndex);
+                }
             }
 
             currentTagIndex = nextIndex;
@@ -141,6 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize transitions and positions
     tags.forEach((tag, index) => {
         tag.style.transition = 'all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1)';
-        tag.style.setProperty('--index', index);
+        tag.style.transform = `translateX(${-10 * index}px) rotate(${5 * index}deg)`;
+        tag.style.zIndex = tags.length - index;
     });
 });
