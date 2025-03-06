@@ -1,0 +1,79 @@
+{
+  "lines": [
+    {
+      "title": {
+        "he": "מחקר ופיתוח",
+        "en": "R&D Services",
+        "de": "F&E-Dienstleistungen",
+        "zh": "研发服务"
+      },
+      "description": {
+        "he": "פתרונות חדשניים ומתקדמים לאתגרים טכנולוגיים",
+        "en": "Innovative and advanced solutions for technological challenges",
+        "de": "Innovative und fortschrittliche Lösungen für technologische Herausforderungen",
+        "zh": "技术挑战的创新和先进解决方案"
+      },
+      "image": "R&D.svg"
+    },
+    {
+      "title": {
+        "he": "הנדסה ו-NPI",
+        "en": "Engineering & NPI",
+        "de": "Engineering & NPI",
+        "zh": "工程与新产品导入"
+      },
+      "description": {
+        "he": "תכנון והטמעה של מוצרים חדשים בתעשייה",
+        "en": "Design and implementation of new products in industry",
+        "de": "Design und Implementierung neuer Produkte in der Industrie",
+        "zh": "工业新产品的设计和实施"
+      },
+      "image": "Engineering & NPI.svg"
+    },
+    {
+      "title": {
+        "he": "שיווק",
+        "en": "Marketing",
+        "de": "Marketing",
+        "zh": "市场营销"
+      },
+      "description": {
+        "he": "אסטרטגיות שיווק יצירתיות להגדלת החשיפה והמכירות",
+        "en": "Creative marketing strategies to increase exposure and sales",
+        "de": "Kreative Marketingstrategien zur Steigerung von Reichweite und Verkauf",
+        "zh": "创意营销策略，提高曝光度和销售额"
+      },
+      "image": "Marketing.svg"
+    },
+    {
+      "title": {
+        "he": "שירות",
+        "en": "Service",
+        "de": "Service",
+        "zh": "服务"
+      },
+      "description": {
+        "he": "תמיכה מקצועית ושירות לקוחות מעולה",
+        "en": "Professional support and excellent customer service",
+        "de": "Professioneller Support und exzellenter Kundenservice",
+        "zh": "专业支持和优质客户服务"
+      },
+      "image": "Service.svg"
+    },
+    {
+      "title": {
+        "he": "אליפקה",
+        "en": "Elipca",
+        "de": "Elipca",
+        "zh": "Elipca"
+      },
+      "description": {
+        "he": "פתרונות טכנולוגיים מתקדמים לעסקים",
+        "en": "Advanced technological solutions for businesses",
+        "de": "Fortschrittliche technologische Lösungen für Unternehmen",
+        "zh": "为企业提供先进的技术解决方案"
+      },
+      "image": "elipca.svg"
+    }
+  ]
+}

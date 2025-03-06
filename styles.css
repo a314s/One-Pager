@@ -9,6 +9,9 @@
     --tag-height: 65vh;
     --tag-width: 80vw;
     --tag-angle: 5deg;
+    --tile-size: 250px;
+    --tile-big-size: 350px;
+    --tile-gap: 20px;
 }
 
 @font-face {
@@ -70,11 +73,15 @@ header {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
-    justify-content: space-between;
     padding: 0 30px;
     flex-shrink: 0;
     position: relative;
     z-index: 100;
+    direction: ltr; /* Force LTR direction regardless of page direction */
+}
+
+.logo-image {
+    margin-right: auto;
 }
 
 .logo-image {
@@ -86,14 +93,18 @@ header {
 .language-selector {
     display: flex;
     gap: 10px;
-    padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* Removed background, border and padding */
 }
 
+.view-controls {
+    display: flex;
+    gap: 10px;
+    margin-left: 20px;
+}
+
+.view-controls button,
 .lang-btn {
-    background-color: transparent;
+    background-color: rgba(255, 255, 255, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.3);
     color: white;
     padding: 6px 12px;
@@ -104,11 +115,13 @@ header {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
+.view-controls button:hover,
 .lang-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.3);
     transform: translateY(-1px);
 }
 
+/* Remove duplicated .lang-btn styles and keep only what's different */
 .lang-btn.active {
     background-color: rgba(52, 152, 219, 0.3);
     border-color: rgba(255, 255, 255, 0.5);
@@ -119,8 +132,9 @@ header {
 main {
     flex: 1;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     perspective: 2000px;
     padding: 20px 0;
     position: relative;
@@ -129,6 +143,7 @@ main {
     height: calc(100vh - var(--header-height) - var(--footer-height));
 }
 
+/* Tag-related styles */
 .tag-container {
     position: relative;
     width: var(--tag-width);
@@ -136,13 +151,17 @@ main {
     transform-style: preserve-3d;
     margin: auto;
     min-height: 500px;
+    display: none; /* Initially hidden, will be shown with .active class */
+}
+
+.tag-container.active {
+    display: block;
 }
 
 .tag {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: var(--tag-color);
     border-radius: 0 25px 25px 0;
     padding: 30px;
     padding-left: 75px;
@@ -153,6 +172,7 @@ main {
     transform-style: preserve-3d;
     left: 0;
     top: 0;
+    display: block;
 }
 
 .tag::before {
@@ -218,6 +238,242 @@ main {
 .tag:nth-child(3) { --tag-color: #FBD400; }
 .tag:nth-child(4) { --tag-color: #6730EC; }
 
+/* All Titles Styles */
+.all-titles-container {
+    display: none;
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #052841;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    color: white;
+    z-index: 10;
+}
+
+.all-titles-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.all-titles-header h2 {
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.titles-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+
+/* All Services Tag Styles */
+.all-services-tag {
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    perspective: 1000px;
+}
+
+.all-services-tag .tag-content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rotating-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+    padding: 20px;
+}
+
+.rotating-title {
+    font-size: 2.5rem;
+    margin-top: 20px;
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+}
+
+.rotating-image {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    filter: brightness(0) invert(1);
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+}
+
+/* Rotating animation for title and image */
+.rotating-title.rotate-out,
+.rotating-image.rotate-out {
+    transform: rotateX(-90deg);
+    transform-origin: bottom center;
+    opacity: 0;
+}
+
+.rotating-title.rotate-in,
+.rotating-image.rotate-in {
+    animation: flipIn 0.5s forwards;
+}
+
+@keyframes flipIn {
+    0% {
+        transform: rotateX(90deg);
+        transform-origin: top center;
+        opacity: 0;
+    }
+    100% {
+        transform: rotateX(0);
+        opacity: 1;
+    }
+}
+
+.titles-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.title-item {
+    font-size: 1.5rem;
+    padding: 15px 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: var(--transition);
+    cursor: pointer;
+    width: calc(50% - 20px);
+    text-align: center;
+}
+
+.title-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Tiles Container Styles */
+.tiles-container {
+    display: none;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start; /* Align to top */
+    gap: var(--tile-gap);
+    padding: 20px 0; /* Reduced top padding */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    position: absolute; /* Position absolute to bring it up */
+    top: 20px; /* Position from top of main container */
+    left: 0;
+    right: 0;
+}
+
+.tiles-container.tiles-fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tile {
+    width: var(--tile-big-size);
+    height: var(--tile-big-size);
+    background-color: var(--tile-color);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+    cursor: pointer;
+    overflow: hidden;
+    transform: scale(0.9);
+    animation: tileAppear 0.6s forwards;
+    animation-delay: calc(var(--index) * 0.1s);
+    position: relative; /* Position relative for absolute positioning of description */
+}
+
+@keyframes tileAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.tile:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.tile-image {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 25px;
+    filter: brightness(0) invert(1);
+    transition: var(--transition);
+}
+
+.tile h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.tile p {
+    font-size: 1.1rem;
+    opacity: 0;
+    line-height: 1.5;
+    position: absolute;
+    bottom: -100%; /* Start offscreen below */
+    left: 0;
+    right: 0;
+    padding: 0 20px;
+    transition: bottom 0.4s ease, opacity 0.3s ease;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 0 0 15px 15px;
+}
+
+.tile:hover p {
+    bottom: 0; /* Move to bottom of tile */
+    opacity: 1;
+}
+
+.tile:hover h3 {
+    transform: translateY(-20px); /* Move title up when hovering */
+}
+
+.tile:hover .tile-image {
+    transform: translateY(-10px) scale(0.9); /* Move image up when hovering */
+}
+
 /* Tag Animation */
 .tag {
     transform: translateX(0) rotate(0deg);
@@ -244,6 +500,19 @@ main {
     box-shadow: inset -2px 0 4px rgba(0, 0, 0, 0.2),
                 0 0 15px rgba(255, 255, 255, 0.5);
     transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Show/Hide Containers */
+.all-titles-container.active {
+    display: block;
+}
+
+.tag-container.active {
+    display: block;
+}
+
+.tiles-container.active {
+    display: flex;
 }
 
 /* Footer Styles */
@@ -305,11 +574,18 @@ footer {
 }
 
 /* Responsive Styles */
+@media (max-width: 1200px) {
+    :root {
+        --tile-big-size: 300px;
+    }
+}
+
 @media (max-width: 768px) {
     :root {
         --tag-width: 90vw;
         --tag-height: 60vh;
         --tag-angle: 4deg;
+        --tile-big-size: 250px;
     }
 
     .language-selector {
@@ -345,6 +621,23 @@ footer {
     .tag-text p {
         font-size: 1.1rem;
     }
+    
+    .rotating-title {
+        font-size: 2rem;
+    }
+    
+    .rotating-image {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .tile h3 {
+        font-size: 1.6rem;
+    }
+    
+    .tile p {
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -352,6 +645,7 @@ footer {
         --tag-width: 95vw;
         --tag-height: 55vh;
         --tag-angle: 3deg;
+        --tile-big-size: 90vw;
     }
 
     .language-selector {
@@ -375,5 +669,31 @@ footer {
 
     .tag-text h2 {
         font-size: 1.5rem;
+    }
+    
+    .rotating-title {
+        font-size: 1.6rem;
+    }
+    
+    .rotating-image {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .tile {
+        width: var(--tile-big-size);
+        height: auto;
+        min-height: 250px;
+        padding: 20px;
+    }
+    
+    .tile-image {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 15px;
+    }
+    
+    .tile h3 {
+        font-size: 1.4rem;
     }
 }

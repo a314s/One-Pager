@@ -17,69 +17,32 @@
                 <button class="lang-btn" data-lang="de">Deutsch</button>
                 <button class="lang-btn" data-lang="zh">中文</button>
             </div>
+            <div class="view-controls">
+                <button id="show-all-titles-btn">All Titles</button>
+                <button id="show-tags-btn">Tags</button>
+                <button id="show-tiles-btn">Tiles</button>
+            </div>
         </header>
 
         <main>
+            <!-- Special tag that lists all titles -->
+            <div class="all-titles-container">
+                <div class="all-titles-header">
+                    <h2 data-he="כל השירותים" data-en="All Services" data-de="Alle Dienstleistungen" data-zh="所有服务">כל השירותים</h2>
+                </div>
+                <div class="titles-list">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Regular tags container -->
             <div class="tag-container">
-                <section class="tag">
-                    <div class="tag-content">
-                        <img src="R&D.svg" alt="R&D Services" class="tag-image">
-                        <div class="tag-text">
-                            <h2 data-he="מחקר ופיתוח" data-en="R&D Services" data-de="F&E-Dienstleistungen" data-zh="研发服务">מחקר ופיתוח</h2>
-                            <p data-he="פתרונות חדשניים ומתקדמים לאתגרים טכנולוגיים" 
-                               data-en="Innovative and advanced solutions for technological challenges"
-                               data-de="Innovative und fortschrittliche Lösungen für technologische Herausforderungen"
-                               data-zh="技术挑战的创新和先进解决方案">
-                                פתרונות חדשניים ומתקדמים לאתגרים טכנולוגיים
-                            </p>
-                        </div>
-                    </div>
-                </section>
+                <!-- Tags will be dynamically generated from lines.json -->
+            </div>
 
-                <section class="tag">
-                    <div class="tag-content">
-                        <img src="Engineering & NPI.svg" alt="Engineering & NPI" class="tag-image">
-                        <div class="tag-text">
-                            <h2 data-he="הנדסה ו-NPI" data-en="Engineering & NPI" data-de="Engineering & NPI" data-zh="工程与新产品导入">הנדסה ו-NPI</h2>
-                            <p data-he="תכנון והטמעה של מוצרים חדשים בתעשייה" 
-                               data-en="Design and implementation of new products in industry"
-                               data-de="Design und Implementierung neuer Produkte in der Industrie"
-                               data-zh="工业新产品的设计和实施">
-                                תכנון והטמעה של מוצרים חדשים בתעשייה
-                            </p>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="tag">
-                    <div class="tag-content">
-                        <img src="Marketing.svg" alt="Marketing" class="tag-image">
-                        <div class="tag-text">
-                            <h2 data-he="שיווק" data-en="Marketing" data-de="Marketing" data-zh="市场营销">שיווק</h2>
-                            <p data-he="אסטרטגיות שיווק יצירתיות להגדלת החשיפה והמכירות" 
-                               data-en="Creative marketing strategies to increase exposure and sales"
-                               data-de="Kreative Marketingstrategien zur Steigerung von Reichweite und Verkauf"
-                               data-zh="创意营销策略，提高曝光度和销售额">
-                                אסטרטגיות שיווק יצירתיות להגדלת החשיפה והמכירות
-                            </p>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="tag">
-                    <div class="tag-content">
-                        <img src="Service.svg" alt="Service" class="tag-image">
-                        <div class="tag-text">
-                            <h2 data-he="שירות" data-en="Service" data-de="Service" data-zh="服务">שירות</h2>
-                            <p data-he="תמיכה מקצועית ושירות לקוחות מעולה" 
-                               data-en="Professional support and excellent customer service"
-                               data-de="Professioneller Support und exzellenter Kundenservice"
-                               data-zh="专业支持和优质客户服务">
-                                תמיכה מקצועית ושירות לקוחות מעולה
-                            </p>
-                        </div>
-                    </div>
-                </section>
+            <!-- Tiles view that appears after scrolling through all tags -->
+            <div class="tiles-container">
+                <!-- Tiles will be dynamically generated from lines.json -->
             </div>
         </main>
 
