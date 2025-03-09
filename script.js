@@ -484,17 +484,48 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Helper function to darken a color
+    function darkenColor(color, amount = 0.15) {
+        // Remove the # if it exists
+        color = color.replace('#', '');
+        
+        // Parse the color
+        let r = parseInt(color.substring(0, 2), 16);
+        let g = parseInt(color.substring(2, 4), 16);
+        let b = parseInt(color.substring(4, 6), 16);
+        
+        // Darken each component
+        r = Math.max(0, Math.floor(r * (1 - amount)));
+        g = Math.max(0, Math.floor(g * (1 - amount)));
+        b = Math.max(0, Math.floor(b * (1 - amount)));
+        
+        // Convert back to hex
+        return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+    }
+
     function createTiles() {
         // Clear any existing content
         tilesContainer.innerHTML = '';
         
         // Create a tile for each line
         linesData.lines.forEach((line, index) => {
+            const tileColor = getTileColor(index);
+            const darkTileColor = darkenColor(tileColor);
+            
             const tile = document.createElement('div');
             tile.className = 'tile';
-            tile.style.setProperty('--tile-color', getTileColor(index));
+            tile.style.setProperty('--tile-color', tileColor);
+            tile.style.setProperty('--tile-dark-color', darkTileColor);
             // Set animation delay index for each tile
             tile.style.setProperty('--index', index);
+            
+            // Create the tile content wrapper for better organization
+            const tileContent = document.createElement('div');
+            tileContent.className = 'tile-content';
+            
+            // Create the left section that will contain the image and title
+            const tileLeft = document.createElement('div');
+            tileLeft.className = 'tile-left';
             
             const tileImage = document.createElement('img');
             tileImage.src = line.image;
@@ -509,6 +540,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 title.dataset[lang] = line.title[lang];
             });
             
+            // Add image and title to left section
+            tileLeft.appendChild(tileImage);
+            tileLeft.appendChild(title);
+            
+            // Add left section to tile content
+            tileContent.appendChild(tileLeft);
+            
+            // Create description that will appear on the right on hover
             const description = document.createElement('p');
             description.textContent = line.description[currentLang];
             
@@ -517,8 +556,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 description.dataset[lang] = line.description[lang];
             });
             
-            tile.appendChild(tileImage);
-            tile.appendChild(title);
+            // Add tile content and description to the tile
+            tile.appendChild(tileContent);
             tile.appendChild(description);
             
             // Add click event to show the specific tag

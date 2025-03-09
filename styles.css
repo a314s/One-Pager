@@ -11,6 +11,7 @@
     --tag-angle: 5deg;
     --tile-size: 250px;
     --tile-big-size: 350px;
+    --tile-expanded-width: 550px; /* New variable for expanded tile width */
     --tile-gap: 20px;
 }
 
@@ -396,7 +397,7 @@ main {
     height: var(--tile-big-size);
     background-color: var(--tile-color);
     border-radius: 15px;
-    padding: 30px;
+    padding: 0; /* Remove padding to let inner elements control their own padding */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
@@ -410,7 +411,7 @@ main {
     transform: scale(0.9);
     animation: tileAppear 0.6s forwards;
     animation-delay: calc(var(--index) * 0.1s);
-    position: relative; /* Position relative for absolute positioning of description */
+    position: relative;
 }
 
 @keyframes tileAppear {
@@ -425,8 +426,32 @@ main {
 }
 
 .tile:hover {
-    transform: translateY(-10px) scale(1.03);
+    transform: translateX(-100px) scale(1.03);
+    width: var(--tile-expanded-width);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.tile-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+    padding: 30px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.tile:hover .tile-content {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0;
+    left: 0;
 }
 
 .tile-image {
@@ -436,6 +461,28 @@ main {
     margin-bottom: 25px;
     filter: brightness(0) invert(1);
     transition: var(--transition);
+}
+
+.tile-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    transform: translateX(0);
+    position: relative;
+    z-index: 2;
+}
+
+.tile:hover .tile-left {
+    width: 50%;
+    transform: translateX(0);
+    background-color: var(--tile-color);
+    position: absolute;
+    left: 0;
 }
 
 .tile h3 {
@@ -450,28 +497,28 @@ main {
     opacity: 0;
     line-height: 1.5;
     position: absolute;
-    bottom: -100%; /* Start offscreen below */
-    left: 0;
-    right: 0;
-    padding: 0 20px;
-    transition: bottom 0.4s ease, opacity 0.3s ease;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-radius: 0 0 15px 15px;
+    right: -100%; /* Start offscreen to the right */
+    top: 0;
+    width: 50%;
+    height: 100%;
+    padding: 30px;
+    transition: right 0.4s ease, opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--tile-dark-color, rgba(0, 0, 0, 0.15)); /* Darker shade */
+    margin: 0;
+    z-index: 1;
 }
 
 .tile:hover p {
-    bottom: 0; /* Move to bottom of tile */
+    right: 0; /* Move to right side of tile */
     opacity: 1;
 }
 
-.tile:hover h3 {
-    transform: translateY(-20px); /* Move title up when hovering */
-}
-
 .tile:hover .tile-image {
-    transform: translateY(-10px) scale(0.9); /* Move image up when hovering */
+    margin-bottom: 15px;
+    transform: scale(0.9);
 }
 
 /* Tag Animation */
@@ -577,6 +624,7 @@ footer {
 @media (max-width: 1200px) {
     :root {
         --tile-big-size: 300px;
+        --tile-expanded-width: 500px;
     }
 }
 
@@ -586,6 +634,7 @@ footer {
         --tag-height: 60vh;
         --tag-angle: 4deg;
         --tile-big-size: 250px;
+        --tile-expanded-width: 400px;
     }
 
     .language-selector {
@@ -638,6 +687,18 @@ footer {
     .tile p {
         font-size: 1rem;
     }
+    
+    .tile:hover {
+        transform: translateX(-50px) scale(1.03);
+    }
+    
+    .tile:hover .tile-left {
+        width: 40%;
+    }
+    
+    .tile p {
+        width: 60%;
+    }
 }
 
 @media (max-width: 480px) {
@@ -646,6 +707,7 @@ footer {
         --tag-height: 55vh;
         --tag-angle: 3deg;
         --tile-big-size: 90vw;
+        --tile-expanded-width: 95vw;
     }
 
     .language-selector {
@@ -695,5 +757,34 @@ footer {
     
     .tile h3 {
         font-size: 1.4rem;
+    }
+    
+    .tile:hover {
+        transform: scale(1.03);
+        width: var(--tile-expanded-width);
+    }
+    
+    .tile:hover .tile-content {
+        flex-direction: column;
+    }
+    
+    .tile:hover .tile-left {
+        width: 100%;
+        margin-bottom: 0;
+        transform: translateX(0);
+    }
+    
+    .tile p {
+        position: static;
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        opacity: 0;
+        display: none;
+    }
+    
+    .tile:hover p {
+        display: block;
+        opacity: 1;
     }
 }
