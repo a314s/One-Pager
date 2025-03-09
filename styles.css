@@ -195,13 +195,14 @@ main {
 
 .tag-content {
     display: flex;
-    align-items: center;
-    gap: 40px;
+    flex-direction: column; /* Change to column layout */
+    align-items: center; /* Center horizontally */
     color: white;
     height: 100%;
     opacity: 1;
     transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
     transform-style: preserve-3d;
+    padding-top: 20px; /* Add padding to the top */
 }
 
 .tag-image {
@@ -210,27 +211,38 @@ main {
     object-fit: contain;
     filter: brightness(0) invert(1);
     transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+    margin-bottom: 20px;
 }
 
 .tag-text {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: space-between; /* Distribute content vertically */
+    width: 100%;
+    padding: 0 40px; /* Add horizontal padding */
 }
 
 .tag-text h2 {
-    font-size: 2.2rem;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-size: 3.2rem; /* Increased from 3rem for better visibility */
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); /* Enhanced text shadow for better readability */
     transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
     font-weight: bold;
+    text-align: center;
 }
 
 .tag-text p {
-    font-size: 1.2rem;
-    line-height: 1.6;
+    font-size: 1.6rem; /* Slightly increased from 1.5rem */
+    line-height: 1.7;
     opacity: 0.95;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4); /* Enhanced text shadow */
     transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
-    font-weight: 300;
+    font-weight: 400; /* Increased from 300 for better readability */
+    text-align: center;
+    max-width: 80%; /* Limit width for better readability */
+    margin: auto; /* Center horizontally */
 }
 
 /* Tag colors */
@@ -283,6 +295,7 @@ main {
     height: 100%;
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -299,11 +312,11 @@ main {
 }
 
 .rotating-title {
-    font-size: 2.5rem;
+    font-size: 3.2rem; /* Match the other tag titles */
     margin-top: 20px;
     text-align: center;
     color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); /* Enhanced text shadow */
     transition: transform 0.5s;
     transform-style: preserve-3d;
 }
@@ -656,6 +669,7 @@ footer {
         flex-direction: column;
         text-align: center;
         gap: 20px;
+        align-items: center;
     }
 
     .tag-image {
@@ -664,15 +678,17 @@ footer {
     }
 
     .tag-text h2 {
-        font-size: 1.8rem;
+        font-size: 2.4rem; /* Adjusted for mobile but still larger than original */
+        margin-bottom: 20px;
     }
 
     .tag-text p {
-        font-size: 1.1rem;
+        font-size: 1.4rem; /* Adjusted for mobile */
+        max-width: 90%;
     }
     
     .rotating-title {
-        font-size: 2rem;
+        font-size: 2.4rem; /* Match the other tag titles on mobile */
     }
     
     .rotating-image {
@@ -730,11 +746,16 @@ footer {
     }
 
     .tag-text h2 {
-        font-size: 1.5rem;
+        font-size: 2rem; /* Adjusted for smaller screens */
+    }
+    
+    .tag-text p {
+        font-size: 1.2rem;
+        max-width: 95%;
     }
     
     .rotating-title {
-        font-size: 1.6rem;
+        font-size: 2rem;
     }
     
     .rotating-image {
